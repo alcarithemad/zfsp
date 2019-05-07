@@ -1,5 +1,3 @@
-import sys
-
 import pytest
 
 import pyndata
@@ -44,12 +42,10 @@ def test_null_string_encoding():
     assert x.pack() == b'asd\0xyz\0'
     x2 = NullEncodingTests(x.pack())
     print(type(x2.s1))
-    if sys.version_info[0] == 3:
-        strtype = str
-        bytestype = bytes
-    else:
+    try:
         strtype = unicode
-        bytestype = str
+    except NameError:
+        strtype = str
     assert isinstance(x2.s1, strtype)
-    assert isinstance(x2.b1, bytestype)
+    assert isinstance(x2.b1, bytes)
 
